@@ -15,7 +15,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        //schedule:work artisan command will activates the command which given to the method as a parameter
+        $schedule->command('date:logdate')->everyMinute();
     }
 
     /**
