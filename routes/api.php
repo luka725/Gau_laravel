@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\MathController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +16,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::get('/{a}', function (Request $req) {
+    return $req->get('a');
+});
+
+Route::group(['prefix' => '/math'], function (){
+    //Route::get('/is-prime/{number}', [MathController::class, 'isPrime']);
+    Route::get('/isworking', function () {
+        return "This Working";
+    });
+    Route::get('/is-working/{d}', function (int $d) {
+        return ['d' => $d];
+    });
 });
