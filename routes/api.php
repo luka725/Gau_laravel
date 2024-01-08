@@ -16,16 +16,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/{a}', function (Request $req) {
-    return $req->get('a');
-});
-
 Route::group(['prefix' => '/math'], function (){
-    //Route::get('/is-prime/{number}', [MathController::class, 'isPrime']);
-    Route::get('/isworking', function () {
-        return "This Working";
-    });
-    Route::get('/is-working/{d}', function (int $d) {
-        return ['d' => $d];
-    });
+    Route::get("/is-prime", [MathController::class, 'is_prime']);
+    Route::get("/is-palindrome", [MathController::class, "is_palindrome"]);
 });
