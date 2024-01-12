@@ -18,8 +18,8 @@ class ProductImageFactory extends Factory
     public function definition()
     {
         return [
-            'file_path' => 'product_images',
-            'file_name' => $this->faker->image(public_path('product_images'), 640, 480, null, false),
+            'file_path' => 'storage/uploads',
+            'file_name' => $this->faker->image(public_path('storage/uploads'), 640, 480, null, false),
             'mime_type' => 'image/jpeg',
             'size' => $this->faker->numberBetween(10000, 500000),
         ];
