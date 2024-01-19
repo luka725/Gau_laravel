@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CategoryController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -26,4 +27,5 @@ Route::group(['prefix' => '/products'], function () {
 
 Route::group(['prefix' => '/add'], function(){
     Route::post('/product', [ProductController::class, 'store']);
+    Route::post('/category', [CategoryController::class, 'store']);
 });
