@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Http\Requests\ProductRequest;
+use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
@@ -23,5 +25,30 @@ class ProductController extends Controller
         }
 
         return response()->json(['images' => $product->images], 200);
+    }
+    public function store(ProductRequest $request){
+        $data = $request->validated();
+
+        $product = Product::create([
+            'name' => $data['name'],
+            'description' => $data['description'],
+            'price' => $data['price'],
+            'category_id' => $data['category_id'],
+        ]);
+        if ($request->hasFile('images')) {
+            $images = $request->file('images');
+    
+            foreach ($images as $uploadedFile) {
+                $filename = $uploadedFile->getClientOriginalName();
+                $imagePath = $uploadedFile->storeAs('uploads', $filename, 'public');
+                $product->images()->create([
+                    'file_path' => 'storage/uploads',
+                    'file_name' => $filename,
+                    'mime_type' => $uploadedFile->getClientMimeType(),
+                    'size' => $uploadedFile->getSize(),
+                ]);
+            }
+        }
+        return response()->json(['message' => 'Product added successfully'], 201);
     }
 }

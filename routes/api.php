@@ -17,6 +17,13 @@ use App\Http\Controllers\ProductController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::get('/products/{categoryId}', [ProductController::class, 'getByCategory']);
-Route::get('/products', [ProductController::class, 'getAllProduct']);
-Route::get('product/images/{productId}', [ProductController::class, 'getImagesById']);
+
+Route::group(['prefix' => '/products'], function () {
+    Route::get('/{categoryId}', [ProductController::class, 'getByCategory']);
+    Route::get('/', [ProductController::class, 'getAllProduct']);
+});
+//Route::get('product/images/{productId}', [ProductController::class, 'getImagesById']);
+
+Route::group(['prefix' => '/add'], function(){
+    Route::post('/product', [ProductController::class, 'store']);
+});
