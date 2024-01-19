@@ -1,26 +1,38 @@
 <!-- resources/views/home.blade.php -->
 
-@extends('layouts.app')  <!-- Assuming you have a layout file, adjust as needed -->
+@extends('layouts.app')
 
 @section('content')
-    <div>
-        <h1>Welcome to the Homepage</h1>
-
-        @foreach($categories as $category)
-            <div>
+<div id="category-carousel" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+        @foreach ($categories as $index => $category)
+            <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
                 <h2>{{ $category->name }}</h2>
-
-                @foreach($category->products as $product)
-                    <div>
-                        <p>{{ $product->name }}</p>
-                        <!-- Add more product details as needed -->
-
-                        @foreach($product->images as $image)
-                            <img src="{{ asset($image->file_path . '/' . $image->file_name) }}" alt="{{ $product->name }}">
-                        @endforeach
-                    </div>
-                @endforeach
+                <div class="row">
+                    @foreach ($category->products as $product)
+                        <div class="col-md-3">
+                            <!-- Product Card -->
+                            <div class="card">
+                                <img src="{{ $product->images[0]->file_path . '/' . $product->images[0]->file_name }}" class="card-img-top" alt="{{ $product->name }}">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ $product->name }}</h5>
+                                    <p class="card-text">{{ $product->description }}</p>
+                                    <p class="card-text">${{ $product->price }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
             </div>
         @endforeach
     </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#category-carousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#category-carousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
 @endsection

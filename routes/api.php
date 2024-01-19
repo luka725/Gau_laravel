@@ -29,3 +29,6 @@ Route::group(['prefix' => '/add'], function(){
     Route::post('/product', [ProductController::class, 'store']);
     Route::post('/category', [CategoryController::class, 'store']);
 });
+Route::group(['prefix' => '/categories'], function(){
+    Route::post('/{categoryId}', [CategoryController::class, 'get_products']);
+});

@@ -51,4 +51,9 @@ class ProductController extends Controller
         }
         return response()->json(['message' => 'Product added successfully'], 201);
     }
+    public function showProduct($productId)
+    {
+        $product = Product::findOrFail($productId);
+        return view('product', compact('product'));
+    }
 }
