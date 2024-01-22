@@ -3,7 +3,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container mt-4">
     <div class="row">
         <div class="col-md-6">
             <!-- Product Image Carousel -->
@@ -33,6 +33,19 @@
             <h2>{{ $product->name }}</h2>
             <p class="lead">{{ $product->description }}</p>
             <p class="font-weight-bold">${{ $product->price }}</p>
+
+            <!-- Add to Cart Form -->
+            <form action="{{ route('products.addToCart', ['product' => $product]) }}" method="post" class="mb-3">
+                @csrf
+                <div class="form-group">
+                    <label for="quantity">Quantity:</label>
+                    <input type="number" name="quantity" value="1" min="1" class="form-control">
+                </div>
+                <button type="submit" class="btn btn-success">Add to Cart</button>
+            </form>
+
+            <!-- View Cart Button -->
+            <a href="{{ route('cart.index') }}" class="btn btn-info">View Cart</a>
         </div>
     </div>
 </div>

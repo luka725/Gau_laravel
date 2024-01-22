@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Cart;
+use App\Models\CartItem;
 use App\Http\Requests\ProductRequest;
 use Illuminate\Support\Str;
 
@@ -51,17 +53,35 @@ class ProductController extends Controller
         }
         return response()->json(['message' => 'Product added successfully'], 201);
     }
-    public function showProduct($productId)
-    {
-        $product = Product::findOrFail($productId);
-        return view('product', compact('product'));
-    }
-    public function __invoke(Product $product)
-    {
-        return view('product', compact('product'));
-    }
     public function show(Product $product)
     {
         return view('products.show', compact('product'));
+    }
+    public function addToCart(Product $product, Request $request)
+    {
+        $quantity = $request->input('quantity', 1);
+
+        $cart = Cart::where('user_id', auth()->id())->first();
+
+        if (!$cart) {
+            $cart = Cart::create(['user_id' => auth()->id()]);
+        }
+
+        $cartItem = CartItem::where('cart_id', $cart->id)
+            ->where('product_id', $product->id)
+            ->first();
+
+        if ($cartItem) {
+            $cartItem->update(['quantity' => $cartItem->quantity + $quantity]);
+        } else {
+            CartItem::create([
+                'cart_id' => $cart->id,
+                'product_id' => $product->id,
+                'quantity' => $quantity,
+                'price' => $product->price,
+            ]);
+        }
+
+        return redirect()->back()->with('success', 'Product added to cart.');
     }
 }

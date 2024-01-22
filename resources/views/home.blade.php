@@ -48,7 +48,7 @@
         right: -2%;
     }
 </style>
-
+<a href="{{ route('cart.index') }}" class="btn btn-info">View Cart</a>
 <div id="category-carousel" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner">
         @foreach ($categories as $index => $category)

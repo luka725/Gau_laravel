@@ -6,6 +6,8 @@ use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\CheckoutController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,3 +27,10 @@ Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
 Route::get('/categories/{category}', [CategoryController::class, 'show'])->name('category.show');
 Route::get('/products/{product}', [ProductController::class, 'show'])->name('product.show');
+Route::post('/products/add-to-cart/{product}', [ProductController::class, 'addToCart'])->name('products.addToCart');
+Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+Route::post('/cart/add/{product}', [CartController::class, 'addToCart'])->name('cart.add');
+Route::post('/cart/update', [CartController::class, 'updateCartItem'])->name('cart.updateCartItem');
+Route::delete('/cart/remove/{product}', [CartController::class, 'removeFromCart'])->name('cart.removeFromCart');
+Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
+Route::post('/checkout/process', [CheckoutController::class, 'process'])->name('checkout.process');
