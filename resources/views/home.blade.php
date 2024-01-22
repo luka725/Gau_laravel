@@ -3,6 +3,29 @@
 @extends('layouts.app')
 
 @section('content')
+<div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">Dashboard</div>
+
+                    <div class="card-body">
+                        @auth
+                            <p>Welcome, {{ Auth::user()->name }}!</p>
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button type="submit" class="btn btn-primary">Logout</button>
+                            </form>
+                        @else
+                            <p>You are not logged in.</p>
+                            <a href="{{ route('login') }}" class="btn btn-primary">Login</a>
+                            <a href="{{ route('register') }}" class="btn btn-primary">Register</a>
+                        @endauth
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 <div id="category-carousel" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner">
         @foreach ($categories as $index => $category)
