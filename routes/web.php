@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\CategoryController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,7 +21,7 @@ Route::get('/', [HomeController::class, 'index']);
 Route::post('/logout', [HomeController::class, 'logout'])->name('logout');
 Route::get('/register', [RegistrationController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [RegistrationController::class, 'register']);
-Route::get('/product/{productId}', [ProductController::class, 'showProduct']);
-Route::get('/products/{product}', ProductController::class);
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
+Route::get('/categories/{category}', [CategoryController::class, 'show'])->name('category.show');
+Route::get('/products/{product}', [ProductController::class, 'show'])->name('product.show');

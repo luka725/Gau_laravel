@@ -25,4 +25,8 @@ class CategoryController extends Controller
 
         return response()->json(['category' => $category], 200);
     }
+    public function show(Category $category)
+    {
+        return view('categories.show', compact('category'));
+    }
 }

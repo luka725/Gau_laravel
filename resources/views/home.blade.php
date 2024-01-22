@@ -26,22 +26,49 @@
             </div>
         </div>
     </div>
+    <style>
+    /* Custom CSS for carousel arrows */
+    .carousel-control-prev,
+    .carousel-control-next {
+        color: black;
+        width: 5%;
+    }
+
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+        background-color: black;
+    }
+
+    /* Adjust position of the arrows */
+    .carousel-control-prev {
+        left: -2%;
+    }
+
+    .carousel-control-next {
+        right: -2%;
+    }
+</style>
+
 <div id="category-carousel" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner">
         @foreach ($categories as $index => $category)
             <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
-                <h2>{{ $category->name }}</h2>
+                <a href="{{ route('category.show', ['category' => $category]) }}">
+                    <h2>{{ $category->name }}</h2>
+                </a>
                 <div class="row">
                     @foreach ($category->products as $product)
                         <div class="col-md-3">
-                            <!-- Product Card -->
                             <div class="card">
-                                <img src="{{ $product->images[0]->file_path . '/' . $product->images[0]->file_name }}" class="card-img-top" alt="{{ $product->name }}">
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ $product->name }}</h5>
-                                    <p class="card-text">{{ $product->description }}</p>
-                                    <p class="card-text">${{ $product->price }}</p>
-                                </div>
+                                <a href="{{ route('product.show', ['product' => $product]) }}">
+                                    <!-- Product Card -->
+                                    <img src="{{ $product->images[0]->file_path . '/' . $product->images[0]->file_name }}" class="card-img-top" alt="{{ $product->name }}">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ $product->name }}</h5>
+                                        <p class="card-text">{{ $product->description }}</p>
+                                        <p class="card-text">${{ $product->price }}</p>
+                                    </div>
+                                </a>
                             </div>
                         </div>
                     @endforeach
