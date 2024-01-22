@@ -12,11 +12,14 @@
                     <div class="card-body">
                         @auth
                             <p>Welcome, {{ Auth::user()->name }}!</p>
+                            <a href="{{ route('cart.index') }}" class="btn btn-info">View Cart</a>
+                            <a href="{{ route('user.orders') }}" class="btn btn-primary">View Your Orders</a>
+                            <br>
+                            <br>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
                                 <button type="submit" class="btn btn-primary">Logout</button>
                             </form>
-                            <a href="{{ route('user.orders') }}">View Your Orders</a>
                         @else
                             <p>You are not logged in.</p>
                             <a href="{{ route('login') }}" class="btn btn-primary">Login</a>
@@ -49,7 +52,6 @@
         right: -2%;
     }
 </style>
-<a href="{{ route('cart.index') }}" class="btn btn-info">View Cart</a>
 <div id="category-carousel" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner">
         @foreach ($categories as $index => $category)

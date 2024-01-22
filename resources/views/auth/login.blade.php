@@ -3,7 +3,7 @@
 @extends('layouts.app') <!-- Assuming you have a layout file at resources/views/layouts/app.blade.php -->
 
 @section('content')
-    <div class="container">
+    <div class="container margin-top">
     <a href="/">Back to Home</a>
         <div class="row justify-content-center">
             <div class="col-md-8">
@@ -59,7 +59,8 @@
                                     <button type="submit" class="btn btn-primary">
                                         {{ __('Login') }}
                                     </button>
-
+                                    Or
+                                    <a href="{{ route('register') }}" class="btn btn-primary">Register</a>
                                     @if (Route::has('password.request'))
                                         <a class="btn btn-link" href="{{ route('password.request') }}">
                                             {{ __('Forgot Your Password?') }}

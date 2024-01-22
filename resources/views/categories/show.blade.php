@@ -3,7 +3,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
+    <div class="container margin-top">
     <a href="/">Back to Home</a>
         <h2 class="my-4">{{ $category->name }}</h2>
         <div class="row">
