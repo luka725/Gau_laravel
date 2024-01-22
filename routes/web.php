@@ -8,6 +8,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\OrderController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -34,3 +35,4 @@ Route::post('/cart/update', [CartController::class, 'updateCartItem'])->name('ca
 Route::delete('/cart/remove/{product}', [CartController::class, 'removeFromCart'])->name('cart.removeFromCart');
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
 Route::post('/checkout/process', [CheckoutController::class, 'process'])->name('checkout.process');
+Route::get('/user/orders', [OrderController::class, 'userOrders'])->name('user.orders');

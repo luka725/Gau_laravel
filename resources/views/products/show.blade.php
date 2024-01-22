@@ -48,5 +48,26 @@
             <a href="{{ route('cart.index') }}" class="btn btn-info">View Cart</a>
         </div>
     </div>
-</div>
+    <div id="relatedProductsCarousel" class="carousel slide mt-4" data-ride="carousel">
+            <div class="carousel-inner">
+                @foreach ($relatedProducts->chunk(4) as $index => $chunk)
+                    <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
+                        <div class="row">
+                            @foreach ($chunk as $relatedProduct)
+                                <div class="col-md-3">
+                                    <a href="{{ route('product.show', ['product' => $relatedProduct]) }}" class="d-block position-relative">
+                                        <img src="{{ asset($relatedProduct->images[0]->file_path . '/' . $relatedProduct->images[0]->file_name) }}" class="w-100" alt="{{ $relatedProduct->name }}">
+                                        <div class="carousel-caption d-flex flex-column align-items-start justify-content-end position-absolute bottom-0 start-0 end-0 p-2">
+                                            <h5 class="mb-0">{{ $relatedProduct->name }}</h5>
+                                            <p class="mb-0">${{ $relatedProduct->price }}</p>
+                                        </div>
+                                    </a>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
 @endsection

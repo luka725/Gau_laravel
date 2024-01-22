@@ -61,7 +61,8 @@
                                 <div class="col-md-6 offset-md-4">
                                     <button type="submit" class="btn btn-primary">
                                         {{ __('Register') }}
-                                    </button>
+                                    </button> Or
+                                    <a href="{{ route('login') }}" class="btn btn-primary">Login</a>
                                 </div>
                             </div>
                         </form>

@@ -16,6 +16,7 @@
                                 @csrf
                                 <button type="submit" class="btn btn-primary">Logout</button>
                             </form>
+                            <a href="{{ route('user.orders') }}">View Your Orders</a>
                         @else
                             <p>You are not logged in.</p>
                             <a href="{{ route('login') }}" class="btn btn-primary">Login</a>

@@ -46,4 +46,9 @@ class OrderController extends Controller
 
         return response()->json(['message' => 'Order placed successfully', 'order_id' => $order->id], 201);
     }
+    public function userOrders()
+    {
+        $userOrders = auth()->user()->orders()->with('orderDetails.product')->latest()->get();
+        return view('orders.user-orders', compact('userOrders'));
+    }
 }

@@ -10,3 +10,9 @@
 .card {
     margin-bottom: 20px;
 }
+.carousel-control-prev{
+    left: -12% !important;
+}
+.carousel-control-next{
+    right: -12% !important;
+}
