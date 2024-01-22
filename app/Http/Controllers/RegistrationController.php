@@ -10,6 +10,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use App\Notifications\RegistrationNotification;
 
 class RegistrationController extends Controller
 {
@@ -38,12 +39,15 @@ class RegistrationController extends Controller
 
     protected function create(array $data)
     {
-        return User::create([
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'email_verified_at' => now(),
             'password' => Hash::make($data['password']),
             'remember_token' => Str::random(10),
         ]);
+        $user->notify(new RegistrationNotification($user));
+        
+        return $user;
     }
 }

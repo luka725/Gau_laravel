@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\OrderDetail;
+use App\Notifications\OrderNotification;
 
 class CheckoutController extends Controller
 {
@@ -34,7 +35,7 @@ class CheckoutController extends Controller
             $orderDetail->price = $cartItem->product->price;
             $orderDetail->save();
         }
-
+        $order->user->notify(new OrderNotification($order));
         // Clear the cart after successful order placement
         $user->cart->items()->delete();
 
