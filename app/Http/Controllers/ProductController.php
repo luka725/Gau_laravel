@@ -56,4 +56,8 @@ class ProductController extends Controller
         $product = Product::findOrFail($productId);
         return view('product', compact('product'));
     }
+    public function __invoke(Product $product)
+    {
+        return view('product', compact('product'));
+    }
 }

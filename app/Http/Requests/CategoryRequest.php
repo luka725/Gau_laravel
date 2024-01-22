@@ -35,4 +35,11 @@ class CategoryRequest extends FormRequest
             'name.unique' => 'The category name must be unique.',
         ];
     }
+
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'name' => strtolower($this->input('name')),
+        ]);
+    }
 }

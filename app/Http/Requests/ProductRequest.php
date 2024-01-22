@@ -49,4 +49,12 @@ class ProductRequest extends FormRequest
             'images.*.max' => 'Each image must not exceed 20048 kilobytes.',
         ];
     }
+
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'name' => strtolower($this->input('name')),
+            'description' => strtolower($this->input('description')),
+        ]);
+    }
 }
