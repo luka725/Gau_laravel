@@ -22,17 +22,32 @@ use App\Http\Controllers\OrderController;
 
 Route::get('/', [HomeController::class, 'index']);
 Route::post('/logout', [HomeController::class, 'logout'])->name('logout');
-Route::get('/register', [RegistrationController::class, 'showRegistrationForm'])->name('register');
-Route::post('/register', [RegistrationController::class, 'register']);
-Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
-Route::post('/login', [LoginController::class, 'login']);
 Route::get('/categories/{category}', [CategoryController::class, 'show'])->name('category.show');
-Route::get('/products/{product}', [ProductController::class, 'show'])->name('product.show');
-Route::post('/products/add-to-cart/{product}', [ProductController::class, 'addToCart'])->name('products.addToCart');
-Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
-Route::post('/cart/add/{product}', [CartController::class, 'addToCart'])->name('cart.add');
-Route::post('/cart/update', [CartController::class, 'updateCartItem'])->name('cart.updateCartItem');
-Route::delete('/cart/remove/{product}', [CartController::class, 'removeFromCart'])->name('cart.removeFromCart');
-Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
-Route::post('/checkout/process', [CheckoutController::class, 'process'])->name('checkout.process');
 Route::get('/user/orders', [OrderController::class, 'userOrders'])->name('user.orders');
+
+Route::group(['prefix' => '/register'], function () {
+    Route::get('/', [RegistrationController::class, 'showRegistrationForm'])->name('register');
+    Route::post('/', [RegistrationController::class, 'register']);
+});
+
+Route::group(['prefix' => '/login'], function () {
+    Route::get('/', [LoginController::class, 'showLoginForm'])->name('login');
+    Route::post('/', [LoginController::class, 'login']);
+});
+
+Route::group(['prefix' => '/products'], function () {
+    Route::get('/{product}', [ProductController::class, 'show'])->name('product.show');
+    Route::post('/add-to-cart/{product}', [ProductController::class, 'addToCart'])->name('products.addToCart');
+});
+
+Route::group(['prefix' => '/cart'], function () {
+    Route::get('/', [CartController::class, 'index'])->name('cart.index');
+    Route::post('/add/{product}', [CartController::class, 'addToCart'])->name('cart.add');
+    Route::post('/update', [CartController::class, 'updateCartItem'])->name('cart.updateCartItem');
+    Route::delete('/remove/{product}', [CartController::class, 'removeFromCart'])->name('cart.removeFromCart');
+});
+
+Route::group(['prefix' => '/checkout'], function () {
+    Route::get('/', [CheckoutController::class, 'index'])->name('checkout.index');
+    Route::post('/process', [CheckoutController::class, 'process'])->name('checkout.process');
+});
