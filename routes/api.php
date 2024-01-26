@@ -35,7 +35,7 @@ Route::group(['prefix' => '/add'], function(){
 });
 Route::group(['prefix' => '/categories'], function(){
     Route::post('/{categoryId}', [CategoryController::class, 'get_products']);
-    Route::get('/categories', CategoryController::class);
+    Route::get('/', CategoryController::class);
 });
 Route::prefix('orders')->group(function () {
     Route::post('/', [OrderController::class, 'store']);
